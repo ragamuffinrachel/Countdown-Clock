@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevHolidayButton = document.getElementById('prevHoliday');
     const nextHolidayButton = document.getElementById('nextHoliday');
 
+    if (!prevHolidayButton || !nextHolidayButton || !holidayImageElement) {
+        console.error('Error: One or more required elements are missing.');
+        return;
+    }
+
     function updateCountdown() {
         const selectedHoliday = holidays[currentHolidayIndex];
         let selectedDate = new Date(selectedHoliday.date);
@@ -39,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
         setImages(daysImages, days, selectedHoliday.theme);
         holidayImageElement.src = `images/holidays/${selectedHoliday.image}`;
     }
@@ -62,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     prevHolidayButton.addEventListener('click', () => changeHoliday('prev'));
     nextHolidayButton.addEventListener('click', () => changeHoliday('next'));
-    setInterval(updateCountdown, 1000);
 
     // Initial update
     updateCountdown();
+    setInterval(updateCountdown, 1000);
 });
